@@ -21,7 +21,7 @@
 
 ```bash
 # 拉取代码
-git clone https://github.com/chatgpt-stream.git
+git clone https://github.com/cookeem/chatgpt-stream.git
 cd chatgpt-stream
 
 # chatGPT的注册页面: https://beta.openai.com/signup
