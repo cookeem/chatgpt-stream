@@ -56,14 +56,15 @@
         </v-row>
         <v-row>
           <v-col class="mb-4">
-            <v-text-field
+            <v-textarea
               append-icon="mdi-refresh"
               append-outer-icon="mdi-send"
               v-model="message"
               label="Your question"
               filled
               clearable
-              background-color="blue lighten-5"
+              auto-grow
+              background-color="yellow lighten-5"
               @click:append="reconnectWs"
               @click:append-outer="sendMessage"
             />
