@@ -126,6 +126,7 @@ export default {
 		wsOnMessage(e) {
       const vm = this
       let msgRecv = JSON.parse(e.data)
+      console.log(e.data)
       let found = false
       vm.messages.forEach((m, i) => {
         if (m.msgId === msgRecv.msgId) {
@@ -153,20 +154,19 @@ export default {
           avatar = require('./assets/chatgpt.png')
           height = 240
           color = 'green lighten-5'
-        } else {
-          let msgNew = {
-            username: username,
-            avatar: avatar,
-            color: color,
-            msgId: msgRecv.msgId,
-            createTime: msgRecv.createTime,
-            msg: msgRecv.msg,
-            height: height,
-          }
-          vm.messages.push(msgNew)
-          vm.messages.push({ divider: true, inset: true })
-          console.log(e.data)
         }
+        let msgNew = {
+          username: username,
+          avatar: avatar,
+          color: color,
+          msgId: msgRecv.msgId,
+          createTime: msgRecv.createTime,
+          msg: msgRecv.msg,
+          height: height,
+        }
+        vm.messages.push(msgNew)
+        vm.messages.push({ divider: true, inset: true })
+        
         if (msgRecv.kind === 'retry') {
           vm.reconnectWs()
         }
