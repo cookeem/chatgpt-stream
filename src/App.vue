@@ -138,7 +138,7 @@ export default {
         let avatar = ''
         let height = 60
         let color = 'white'
-        if (msgRecv.kind === 'error') {
+        if ((msgRecv.kind === 'error') || (msgRecv.kind === 'retry')) {
           username = 'ERROR'
           avatar = require('./assets/error.png')
           height = 60
@@ -153,9 +153,6 @@ export default {
           avatar = require('./assets/chatgpt.png')
           height = 240
           color = 'green lighten-5'
-        }
-        if (msgRecv.kind === 'retry') {
-          vm.reconnectWs()
         } else {
           let msgNew = {
             username: username,
@@ -169,6 +166,9 @@ export default {
           vm.messages.push(msgNew)
           vm.messages.push({ divider: true, inset: true })
           console.log(e.data)
+        }
+        if (msgRecv.kind === 'retry') {
+          vm.reconnectWs()
         }
       }
 		},
