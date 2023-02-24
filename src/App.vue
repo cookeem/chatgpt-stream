@@ -152,7 +152,7 @@ export default {
         } else if (msgRecv.kind === 'chat') {
           username = 'CHATGPT'
           avatar = require('./assets/chatgpt.png')
-          height = 240
+          height = 360
           color = 'green lighten-5'
         }
         let msgNew = {
