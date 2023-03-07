@@ -65,4 +65,7 @@ npm install
 npm run serve
 # Compile the project
 npm run build
+
+# If ERR_OSSL_EVP_UNSUPPORTED error occurs, please use the following command to compile
+export NODE_OPTIONS=--openssl-legacy-provider && npm run build
 ```

@@ -65,4 +65,7 @@ npm install
 npm run serve
 # 执行编译
 npm run build
+
+# 假如出现 ERR_OSSL_EVP_UNSUPPORTED 错误，请使用以下命令进行编译
+export NODE_OPTIONS=--openssl-legacy-provider && npm run build
 ```
