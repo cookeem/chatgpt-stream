@@ -23,7 +23,7 @@
                 <v-subheader
                   v-if="item.header"
                   :key="index"
-                  v-text="item.header"
+                  v-html="item.header"
                 ></v-subheader>
                 <v-divider
                   v-else-if="item.divider"
@@ -116,7 +116,7 @@ export default {
 		},
 		wsOnOpen() {
       const vm = this
-      let content = '[CONNECTED]'
+      let content = '[CONNECTED]<br/>Enter question prompt it will return an answer<br/>Enter "/image " + image description it will return the generated image'
       let msg = {
         header: content,
       }
