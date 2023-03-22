@@ -42,11 +42,18 @@
                     <v-list-item-subtitle>{{ item.createTime }}</v-list-item-subtitle>
                     <v-list-item-subtitle>
                       <v-textarea
+                        v-if="item.isImage === false"
                         filled
                         :height="item.height"
                         :background-color="item.color"
                         :value="item.msg"
-                      ></v-textarea>
+                      />
+                      <v-img
+                        v-else
+                        max-height="256"
+                        max-width="256"
+                        :src="item.msg"
+                      />
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -57,6 +64,7 @@
         <v-row>
           <v-col class="mb-4">
             <v-textarea
+              prepend-inner-icon="mdi-image"
               append-icon="mdi-refresh"
               append-outer-icon="mdi-send"
               v-model="message"
@@ -67,6 +75,7 @@
               background-color="yellow lighten-5"
               @click:append="reconnectWs"
               @click:append-outer="sendMessage"
+              @click:prepend-inner="() => {message = '/image '}"
             />
           </v-col>
         </v-row>
@@ -139,6 +148,7 @@ export default {
         let avatar = ''
         let height = 60
         let color = 'white'
+        let isImage = false
         if ((msgRecv.kind === 'error') || (msgRecv.kind === 'retry')) {
           username = 'ERROR'
           avatar = require('./assets/error.png')
@@ -154,6 +164,12 @@ export default {
           avatar = require('./assets/chatgpt.png')
           height = 360
           color = 'green lighten-5'
+        } else if (msgRecv.kind === 'image') {
+          username = 'CHATGPT'
+          avatar = require('./assets/chatgpt.png')
+          height = 360
+          color = 'green lighten-5'
+          isImage = true
         }
         let msgNew = {
           username: username,
@@ -163,7 +179,12 @@ export default {
           createTime: msgRecv.createTime,
           msg: msgRecv.msg,
           height: height,
+          isImage: isImage,
         }
+        if (msgRecv.kind === 'image') {
+          msgNew.msg = process.env.VUE_APP_BASE_HTTP + '/' + msgNew.msg
+        }
+        console.log(msgNew.msg)
         vm.messages.push(msgNew)
         vm.messages.push({ divider: true, inset: true })
         
